@@ -8,20 +8,37 @@ Download aktuelle Version: https://github.com/rols1/Plex-Plugin-TagesschauXL/rel
 direkt: rols1@gmx.de 
   
 #### Funktionen
--Suche
--Livestream 
--Tagesschau in 100 Sekunden
--Letzte Sendung (Tagesschau)
--Tagesschau 20 Uhr
--Tagesschau 20 Uhr (Gebärdensprache)
--Tagesthemen (letzte Sendung)
--Nachtmagazin (letzte Sendung)
--Bericht aus Berlin
--Sendungsarchiv (30 Tage)
--Videoblogs der ARD-Korrespondenten
--Politik im Radio
--Bildergalerien
--#kurzerklärt
+<<<<<<< HEAD
+- Suche
+- Livestream 
+- Tagesschau in 100 Sekunden
+- Letzte Sendung (Tagesschau)
+- Tagesschau 20 Uhr
+- Tagesschau 20 Uhr (Gebärdensprache)
+- Tagesthemen (letzte Sendung)
+- Nachtmagazin (letzte Sendung)
+- Bericht aus Berlin
+- Sendungsarchiv (30 Tage)
+- Videoblogs der ARD-Korrespondenten
+- Politik im Radio
+- Bildergalerien
+- #kurzerklärt
+=======
+- Suche
+- Livestream 
+- Tagesschau in 100 Sekunden
+- Letzte Sendung (Tagesschau)
+- Tagesschau 20 Uhr
+- Tagesschau 20 Uhr (Gebärdensprache)
+- Tagesthemen (letzte Sendung)
+- Nachtmagazin (letzte Sendung)
+- Bericht aus Berlin
+- Sendungsarchiv (30 Tage)
+- Videoblogs der ARD-Korrespondenten
+- Politik im Radio
+- Bildergalerien
+- #kurzerklärt
+>>>>>>> ed775a13823d3e018b43782cfd292248bd1c3b82
 
 -Updatemodul
 
