@@ -17,8 +17,8 @@ Versions-Historie: siehe Datei HISTORY
 ####################################################################################################
 '''
 
-VERSION =  '1.0.0'		
-VDATE = '06.02.2017'
+VERSION =  '1.0.1'		
+VDATE = '07.02.2017'
 
 # 
 #	
@@ -374,7 +374,6 @@ def get_content(oc, page, ID):
 	Log('get_content'); Log('ID=' + ID)
 
 	if  ID=='Search':
-#		content =  blockextract('class=\"teasertext \">', '', page)
 		content =  blockextract('class=\"teaser\">', '', page)
 	if ID=='ARD_bab' or ID=='ARD_Bilder' or ID=='ARD_PolitikRadio':
 		content =  blockextract('class=\"teaser\">', '', page)
@@ -473,8 +472,8 @@ def get_content(oc, page, ID):
 				teasertext = headline		
 			dachzeile = stringextract('dachzeile\">', '</p>', rec)		
 			tagline = dachzeile	
-					
-		Log(teaser_url); Log(headline); Log(teasertext); 				
+		Log('content-extracts:')		
+		Log(teaser_url); Log(headline); Log(teasertext[:81]);  # Log-Begrenzung ungerade (vor utf-8-Dekodierung)		
 		Log(dachzeile);	Log(teaser_typ); Log(teaser_date);		
 			
 		title = unescape(headline)
@@ -486,15 +485,14 @@ def get_content(oc, page, ID):
 			title, tagline = tagline, title
 				
 		if title=='' or summary=='':			# z.B. Video</strong> vom 27.09.2004 00:00:01 (leer, Rauschen)
-			Log('title/summary leer')
+			Log('title/summary leer: skip')
 			continue
 			
-			
-		Log('neuer Satz')
-		Log(teaser_img);Log(teaser_url);Log(title);Log(summary);Log(tagline);
 		title = title.decode(encoding="utf-8", errors="ignore")
 		summary = summary.decode(encoding="utf-8", errors="ignore")
 		tagline = tagline.decode(encoding="utf-8", errors="ignore")
+		Log('neuer Satz:')
+		Log(teaser_img);Log(teaser_url);Log(title);Log(summary[:80]);Log(tagline);
 
 		if onlyGallery == True:					# reine Bildgalerie
 			oc.add(DirectoryObject(key=Callback(Bildgalerie, path=gallery_url, title=title), 
@@ -578,7 +576,7 @@ def GetVideoSources(path, title, summary, tagline, thumb):
 	return oc
 
 #-------------------------
-
+@route(PREFIX + '/Bildgalerie')
 def Bildgalerie(path, title):	
 	Log('Bildgalerie'); Log(title); Log(path)
 	
@@ -692,7 +690,6 @@ def CreateVideoClipObject(url, title, summary, tagline, meta, thumb, duration, r
 	Log('CreateVideoClipObject')
 	Log(url); Log(duration); Log(tagline)
 	Log(Client.Platform)
-	# resolution = ''					# leer - Clients skalieren besser selbst
 	resolution=[1280,1024,720,540,480]	# wie VideoClipObject: Vorgabe für Webplayer entbehrlich, für PHT erforderlich
 	if not duration:
 		duration = 'duration'			# für PHT (leer nicht akzeptiert)
