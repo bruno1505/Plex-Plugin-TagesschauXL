@@ -2,6 +2,7 @@ CHANGE HISTORY 	Plex-Plugin-TagesschauXL
 --------------	Releases: 	https://github.com/rols1/Plex-Plugin-TagesschauXL/releases
 --------------				
 
+22.02.2017	1.0.2	Funktion PlayVideo: "HTTP.Request(url).content" entfernt (überflüssig)
 07.02.2017	1.0.1	Codebereinigung: Logausgaben verringert	
 06.02.2017	1.0.0	Initial Release Github, Hinweis im Plex-Forum (deutsch)
 

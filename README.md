@@ -4,7 +4,7 @@ Plex-Plugin-TagesschauXL
 Das Plugin setzt die wesentlichen Inhalte von tagesschau.de um
 Download aktuelle Version: https://github.com/rols1/Plex-Plugin-TagesschauXL/releases
 
-#### Rückmeldungen im Plex-Forum willkommen
+#### Rückmeldungen im Plex-Forum willkommen: https://forums.plex.tv/discussion/257366/rel-tagesschauxl
 direkt: rols1@gmx.de 
   
 #### Funktionen

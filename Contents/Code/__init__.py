@@ -17,8 +17,8 @@ Versions-Historie: siehe Datei HISTORY
 ####################################################################################################
 '''
 
-VERSION =  '1.0.1'		
-VDATE = '07.02.2017'
+VERSION =  '1.0.2'		
+VDATE = '22.02.2017'
 
 # 
 #	
@@ -680,7 +680,6 @@ def CreateVideoStreamObject(url, title, summary, tagline, meta, thumb, rtmp_live
 @route(PREFIX + '/PlayVideo')  
 def PlayVideo(url, **kwargs):	# resolution übergeben, falls im  videoclip_obj verwendet
 	Log('PlayVideo: ' + url); 		# Log('PlayVideo: ' + resolution)
-	HTTP.Request(url).content
 	return Redirect(url)
 	
 #-----------------------------
