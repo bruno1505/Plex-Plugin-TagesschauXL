@@ -2,6 +2,8 @@ CHANGE HISTORY 	Plex-Plugin-TagesschauXL
 --------------	Releases: 	https://github.com/rols1/Plex-Plugin-TagesschauXL/releases
 --------------				
 
+03.06.2017	1.0.3	Funktion get_content: "utf-8"-Dekodierung von teasertext vor Logausgabe (ohne
+					crashte das Plugin bei einigen Sonderzeichen).
 22.02.2017	1.0.2	Funktion PlayVideo: "HTTP.Request(url).content" entfernt (überflüssig)
 07.02.2017	1.0.1	Codebereinigung: Logausgaben verringert	
 06.02.2017	1.0.0	Initial Release Github, Hinweis im Plex-Forum (deutsch)
@@ -15,8 +17,8 @@ CHANGE HISTORY 	Plex-Plugin-TagesschauXL
 30.01.2017	0.4.0 	Umsetzung Bericht aus Berlin, Sendungsarchiv, Videoblogs
 29.01.2017	0.3.0	Umsetzung Livestream und Direktinhalte
 28.01.2017	0.2.0	Umstellung Konzept nach Analyse Webauftritt tagesschau.de: 2-Teilung zwischen 
-			Direktaufrufen (letzte Sendung, Tagesthemen usw.) und Videoarchiven (Bsp.: Videoblogs, 
-			#kurzerklärt) 
+					Direktaufrufen (letzte Sendung, Tagesthemen usw.) und Videoarchiven (Bsp.: Videoblogs, 
+					#kurzerklärt) 
 27.01.2017	0.1.0	Entwurf, Einrichtung Projektumgebung, Pluginrumpf
 		
 

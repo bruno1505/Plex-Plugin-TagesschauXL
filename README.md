@@ -42,4 +42,7 @@ UPDATES:
 ===================  
 Für Updates kann das integrierte Update-Modul verwendet werden.
  
+Hauptmenü:
+===================  
+![img](https://us.v-cdn.net/6025034/uploads/editor/uv/o86lplpocpyl.png)
    

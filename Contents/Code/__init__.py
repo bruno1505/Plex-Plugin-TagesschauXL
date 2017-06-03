@@ -17,8 +17,8 @@ Versions-Historie: siehe Datei HISTORY
 ####################################################################################################
 '''
 
-VERSION =  '1.0.2'		
-VDATE = '22.02.2017'
+VERSION =  '1.0.3'		
+VDATE = '03.06.2017'
 
 # 
 #	
@@ -472,8 +472,9 @@ def get_content(oc, page, ID):
 				teasertext = headline		
 			dachzeile = stringextract('dachzeile\">', '</p>', rec)		
 			tagline = dachzeile	
-		Log('content-extracts:')		
-		Log(teaser_url); Log(headline); Log(teasertext[:81]);  # Log-Begrenzung ungerade (vor utf-8-Dekodierung)		
+		Log('content-extracts:')
+		teasertext = teasertext.decode(encoding="utf-8", errors="ignore")	 # Decod. manchmal für Logausgabe erforderlich 	
+		Log(teaser_url); Log(headline); Log(teasertext[:81]);  		
 		Log(dachzeile);	Log(teaser_typ); Log(teaser_date);		
 			
 		title = unescape(headline)
@@ -880,7 +881,6 @@ def teilstring(zeile, startmarker, endmarker):  		# rfind: endmarker=letzte Fund
 def blockextract(blockmark, blockendmark, mString):  # extrahiert Blöcke begrenzt durch blockmark aus mString
 	#   Block wird durch blockendmark begrenzt, falls belegt 
 	#	blockmark bleibt Bestandteil der Rückgabe
-	#	Rückgabe in Liste. Letzter Block reicht bis Ende mString (undefinierte Länge)
 	#	Verwendung, wenn xpath nicht funktioniert (Bsp. Tabelle EPG-Daten www.dw.com/de/media-center/live-tv/s-100817)
 	rlist = []				
 	if 	blockmark == '' or 	mString == '':
