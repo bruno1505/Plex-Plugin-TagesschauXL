@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import string
-import urllib		# urllib.quote()
+import urllib			# urllib.quote()
+import urllib2			# urllib2.Request
 import os, subprocess 	# u.a. Behandlung von Pfadnamen
 import sys				# Plattformerkennung
 import re			# u.a. Reguläre Ausdrücke, z.B. in CalculateDuration
@@ -17,8 +18,8 @@ Versions-Historie: siehe Datei HISTORY
 ####################################################################################################
 '''
 
-VERSION =  '1.0.3'		
-VDATE = '03.06.2017'
+VERSION =  '1.0.4'		
+VDATE = '28.03.2018'
 
 # 
 #	
@@ -178,11 +179,28 @@ def Main():
 	oc.add(DirectoryObject(key=Callback(menu_hub, title=title, path=ARD_kurz, ID='ARD_kurz', img=ICON_KURZ), 
 		title=title,summary=title, tagline='TV', thumb=R(ICON_KURZ)))
 
-								
 	repo_url = 'https://github.com/{0}/releases/'.format(GITHUB_REPOSITORY)
-	oc.add(DirectoryObject(key=Callback(SearchUpdate, title='Plugin-Update'), 
-		title='Plugin-Update | akt. Version: ' + VERSION + ' vom ' + VDATE,
-		summary='Suche nach neuen Updates starten', tagline='Bezugsquelle: ' + repo_url, thumb=R(ICON_MAIN_UPDATER)))
+	call_update = False
+	if Prefs['pref_info_update'] == True:				# Hinweis auf neues Update beim Start des Plugins 
+		ret = updater.update_available(VERSION)
+		int_lv = ret[0]			# Version Github
+		int_lc = ret[1]			# Version aktuell
+		latest_version = ret[2]	# Version Github, Format 1.4.1
+		
+		if int_lv > int_lc:								# Update-Button "installieren" zeigen
+			call_update = True
+			title = 'neues Update vorhanden - jetzt installieren'
+			summary = 'Plugin aktuell: ' + VERSION + ', neu auf Github: ' + latest_version
+			url = 'https://github.com/{0}/releases/download/{1}/{2}.bundle.zip'.format(GITHUB_REPOSITORY, latest_version, REPO_NAME)
+			oc.add(DirectoryObject(key=Callback(updater.update, url=url , ver=latest_version), 
+				title=title, summary=summary, tagline=cleanhtml(summary), thumb=R(ICON_UPDATER_NEW)))
+	if call_update == False:							# Update-Button "Suche" zeigen	
+		title = 'Plugin-Update | akt. Version: ' + VERSION + ' vom ' + VDATE	
+		summary='Suche nach neuen Updates starten'
+		tagline='Bezugsquelle: ' + repo_url			
+		oc.add(DirectoryObject(key=Callback(SearchUpdate, title='Plugin-Update'), 
+			title=title, summary=summary, tagline=tagline, thumb=R(ICON_MAIN_UPDATER)))
+								
 		
 	return oc
 
@@ -512,7 +530,7 @@ def get_content(oc, page, ID):
 ###################################################################################################
 @route(PREFIX + '/GetVideoSources')	# Einzelsendung - 
 # Problem Texte (tagline, summary): hier umfangreicher, aber Verzicht, da mindestens 3 Seitenkonzepte.
-# 	Wir übernehmen daher die Text vom Aufrufer.
+# 	Wir übernehmen daher die Texte vom Aufrufer.
 def GetVideoSources(path, title, summary, tagline, thumb):
 	Log('Funktion GetVideoSources: ' + path)
 	title = title.decode(encoding="utf-8", errors="ignore")
@@ -528,7 +546,8 @@ def GetVideoSources(path, title, summary, tagline, thumb):
 		oc = Bildgalerie(path=path, title=title)
 		return oc
 	
-	if page.find('<fieldset>') == -1:							# Test auf Videos
+	Log('<fieldset>' in page)
+	if '<fieldset>' not in page:							# Test auf Videos
 		if page.find('magnifier_pos-0.html\">') > 0 :	      	# Einzelbild(er) vorhanden
 			leftpos, leftstring = my_rfind('href=', 'magnifier_pos-0.html\">', page)	
 			Log(leftstring)	
@@ -725,7 +744,11 @@ def CreateVideoClipObject(url, title, summary, tagline, meta, thumb, duration, r
 
 def get_page(path):		# holt kontrolliert raw-Content
 	try:
-		page = HTTP.Request(path).content
+		# 28.03.2018 Wechsel von HTTP.Request zu urllib2.Request, da der Inhalt von ../sendung/ts-24821.html nicht mehr 
+		#	mehr mit dem Chrome-Ergebnis übereinstimmte und 'User-Agent' nicht half. 
+		req = urllib2.Request(path)
+		r = urllib2.urlopen(req)
+		page = r.read()					
 		err = ''
 	except:
 		page = ''

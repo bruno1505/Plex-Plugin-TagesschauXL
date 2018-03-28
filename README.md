@@ -22,8 +22,7 @@ direkt: rols1@gmx.de
 - Politik im Radio
 - Bildergalerien
 - kurzerklärt
-
--Updatemodul
+- Updatemodul
 
 
 INSTALLATION:

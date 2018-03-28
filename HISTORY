@@ -1,7 +1,11 @@
 CHANGE HISTORY 	Plex-Plugin-TagesschauXL
 --------------	Releases: 	https://github.com/rols1/Plex-Plugin-TagesschauXL/releases
 --------------				
+					
 
+28.03.2018	1.0.4	get_page: Wechsel von HTTP.Request zu urllib2.Request (Problem mit Inhalten für
+			Menü "Tagesschau Letzte Sendung".
+			Pluginstart: Option zum Anzeigen neuer Updates hinzugefügt.					
 03.06.2017	1.0.3	Funktion get_content: "utf-8"-Dekodierung von teasertext vor Logausgabe (ohne
 					crashte das Plugin bei einigen Sonderzeichen).
 22.02.2017	1.0.2	Funktion PlayVideo: "HTTP.Request(url).content" entfernt (überflüssig)
