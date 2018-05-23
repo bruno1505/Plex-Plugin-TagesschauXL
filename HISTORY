@@ -3,6 +3,8 @@ CHANGE HISTORY 	Plex-Plugin-TagesschauXL
 --------------				
 					
 
+23.05.2018	1.0.5	Url-Umstellung HTTP -> HTTPS.
+			Url für Menü kurzerklärt geändert: ../faktenfinder.tagesschau.de/kurzerklaert/..	
 28.03.2018	1.0.4	get_page: Wechsel von HTTP.Request zu urllib2.Request (Problem mit Inhalten für
 			Menü "Tagesschau Letzte Sendung".
 			Pluginstart: Option zum Anzeigen neuer Updates hinzugefügt.					

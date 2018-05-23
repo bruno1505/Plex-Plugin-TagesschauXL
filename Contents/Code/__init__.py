@@ -18,8 +18,8 @@ Versions-Historie: siehe Datei HISTORY
 ####################################################################################################
 '''
 
-VERSION =  '1.0.4'		
-VDATE = '28.03.2018'
+VERSION =  '1.0.5'		
+VDATE = '23.05.2018'
 
 # 
 #	
@@ -84,23 +84,23 @@ ICON_DELETE = "icon-delete.png"
 
 BASE_URL = 'http://www.tagesschau.de'
 
-ARD_Live = 'http://www.tagesschau.de/multimedia/livestreams/index.html'
+ARD_Live = 'https://www.tagesschau.de/multimedia/livestreams/index.html'
 ARD_m3u8 = 'http://tagesschau-lh.akamaihd.net/i/tagesschau_1@119231/master.m3u8'
 # ARD_IMP = 'http://www.tagesschau.de/die_wichtigsten_nachrichten_als_video/index.html' # Inhalt mit ARD_100  identisch
-ARD_100 = 'http://www.tagesschau.de/100sekunden/index.html'
-ARD_Last = 'http://www.tagesschau.de/sendung/letzte-sendung/index.html'
-ARD_20Uhr = 'http://www.tagesschau.de/sendung/tagesschau/index.html'
-ARD_Gest = 'http://www.tagesschau.de/sendung/tagesschau_mit_gebaerdensprache/index.html'
-ARD_tthemen = 'http://www.tagesschau.de/sendung/tagesthemen/index.html'
-ARD_Nacht = 'http://www.tagesschau.de/sendung/nachtmagazin/index.html'
-ARD_bab = 'http://www.tagesschau.de/bab/index.html'
-ARD_Archiv = 'http://www.tagesschau.de/multimedia/sendung/index.html'
-# ARD_Pod = 'http://www.tagesschau.de/multimedia/podcasts/index.html'					# überflüssig ohne Download-Funktion
-ARD_Blogs = 'http://www.tagesschau.de/videoblog/startseite/index.html'
-ARD_PolitikRadio = 'http://www.tagesschau.de/multimedia/politikimradio/index.html'
-ARD_Bilder = 'http://www.tagesschau.de/multimedia/bilder/index.html'
-ARD_kurz = 'http://www.tagesschau.de/multimedia/kurzerklaert/index.html'
-
+ARD_100 = 'https://www.tagesschau.de/100sekunden/index.html'
+ARD_Last = 'https://www.tagesschau.de/sendung/letzte-sendung/index.html'
+ARD_20Uhr = 'https://www.tagesschau.de/sendung/tagesschau/index.html'
+ARD_Gest = 'https://www.tagesschau.de/sendung/tagesschau_mit_gebaerdensprache/index.html'
+ARD_tthemen = 'https://www.tagesschau.de/sendung/tagesthemen/index.html'
+ARD_Nacht = 'https://www.tagesschau.de/sendung/nachtmagazin/index.html'
+ARD_bab = 'https://www.tagesschau.de/bab/index.html'
+ARD_Archiv = 'https://www.tagesschau.de/multimedia/sendung/index.html'
+# ARD_Pod = 'https://www.tagesschau.de/multimedia/podcasts/index.html'						 # überflüssig ohne Download-Funktion
+ARD_Blogs = 'https://www.tagesschau.de/videoblog/startseite/index.html'
+ARD_PolitikRadio = 'https://www.tagesschau.de/multimedia/politikimradio/index.html'
+ARD_Bilder = 'https://www.tagesschau.de/multimedia/bilder/index.html'
+# ARD_kurz = 'https://www.tagesschau.de/multimedia/kurzerklaert/index.html'					# resfresh -> faktenfinder, s.u.
+ARD_kurz = 'https://faktenfinder.tagesschau.de/kurzerklaert/index.html'
 
 REPO_NAME = 'Plex-Plugin-TagesschauXL'
 GITHUB_REPOSITORY = 'rols1/' + REPO_NAME
