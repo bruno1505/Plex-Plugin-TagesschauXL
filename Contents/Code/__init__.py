@@ -2,6 +2,7 @@
 import string
 import urllib			# urllib.quote()
 import urllib2			# urllib2.Request
+import ssl				# HTTPS-Handshake
 import os, subprocess 	# u.a. Behandlung von Pfadnamen
 import sys				# Plattformerkennung
 import re			# u.a. Reguläre Ausdrücke, z.B. in CalculateDuration
@@ -18,8 +19,8 @@ Versions-Historie: siehe Datei HISTORY
 ####################################################################################################
 '''
 
-VERSION =  '1.0.5'		
-VDATE = '23.05.2018'
+VERSION =  '1.0.6'		
+VDATE = '15.07.2018'
 
 # 
 #	
@@ -84,7 +85,7 @@ ICON_DELETE = "icon-delete.png"
 
 BASE_URL = 'http://www.tagesschau.de'
 
-ARD_Live = 'https://www.tagesschau.de/multimedia/livestreams/index.html'
+# ARD_Live = 'https://www.tagesschau.de/multimedia/livestreams/index.html'				# ersetzt durch ARD_m3u8
 ARD_m3u8 = 'http://tagesschau-lh.akamaihd.net/i/tagesschau_1@119231/master.m3u8'
 # ARD_IMP = 'http://www.tagesschau.de/die_wichtigsten_nachrichten_als_video/index.html' # Inhalt mit ARD_100  identisch
 ARD_100 = 'https://www.tagesschau.de/100sekunden/index.html'
@@ -95,12 +96,13 @@ ARD_tthemen = 'https://www.tagesschau.de/sendung/tagesthemen/index.html'
 ARD_Nacht = 'https://www.tagesschau.de/sendung/nachtmagazin/index.html'
 ARD_bab = 'https://www.tagesschau.de/bab/index.html'
 ARD_Archiv = 'https://www.tagesschau.de/multimedia/sendung/index.html'
-# ARD_Pod = 'https://www.tagesschau.de/multimedia/podcasts/index.html'						 # überflüssig ohne Download-Funktion
+# ARD_Pod = 'https://www.tagesschau.de/multimedia/podcasts/index.html'					# überflüssig ohne Download-Funktion
 ARD_Blogs = 'https://www.tagesschau.de/videoblog/startseite/index.html'
 ARD_PolitikRadio = 'https://www.tagesschau.de/multimedia/politikimradio/index.html'
 ARD_Bilder = 'https://www.tagesschau.de/multimedia/bilder/index.html'
-# ARD_kurz = 'https://www.tagesschau.de/multimedia/kurzerklaert/index.html'					# resfresh -> faktenfinder, s.u.
+# ARD_kurz = 'https://www.tagesschau.de/multimedia/kurzerklaert/index.html'				# resfresh -> faktenfinder, s.u.
 ARD_kurz = 'https://faktenfinder.tagesschau.de/kurzerklaert/index.html'
+BASE_FAKT='https://faktenfinder.tagesschau.de'											# s. get_content
 
 REPO_NAME = 'Plex-Plugin-TagesschauXL'
 GITHUB_REPOSITORY = 'rols1/' + REPO_NAME
@@ -326,6 +328,7 @@ def menu_hub(title, path, ID, img):
 		if ID=='ARD_20Uhr' or ID=='ARD_Gest': 
 			url =  BASE_URL + stringextract('class=\"mediaLink\" href=\"', '\"', page)
 		
+		url = url.replace('"', '')		# 15.07.2018 Url's mit Endung " gesehen
 		Log(title); Log(url); Log(img)
 		oc = GetVideoSources(path=url , title=title, summary=title, thumb=R(img), tagline=title)
 		return oc
@@ -397,8 +400,13 @@ def get_content(oc, page, ID):
 		content =  blockextract('class=\"teaser\">', '', page)
 	if ID=='ARD_Blogs' or ID=='ARD_kurz'  or ID=='ARD_Archiv_Day':
 		content =  blockextract('class=\"teaser\" >', '', page)
+		base_url = BASE_FAKT
 	if ID=='ARD_PolitikRadio':
 		content =  blockextract('class=\"teaser\"', '', page)
+		
+	base_url = BASE_URL
+	if ID=='ARD_kurz':
+		base_url = BASE_FAKT									# http://faktenfinder.tagesschau.de
 						
 	Log(len(page)); Log(len(content));
 	
@@ -421,8 +429,8 @@ def get_content(oc, page, ID):
 		teaser_img = ''												
 		teaser_img = stringextract('src=\"', '\"', rec) 	
 		if teaser_img.find('http://') == -1:							# ohne http://	bei Wetter + gelöschten Seiten		
-			teaser_img = BASE_URL + teaser_img
-		teaser_url =  BASE_URL + stringextract('href=\"', '\"', rec)	# 1. Stelle <a href=				
+			teaser_img = base_url + teaser_img
+		teaser_url =  base_url + stringextract('href=\"', '\"', rec)	# 1. Stelle <a href=				
 			
 		Log(teaser_img); Log(teaser_url)
 			
@@ -464,10 +472,10 @@ def get_content(oc, page, ID):
 			pos = rec.find('class=\"gallerie\">')								# Satz mit zusätzl. Bilderserie?
 			if pos > 0:															# wir erzeugen 2. Button, s.u.
 				leftpos, leftstring = my_rfind('<a href=', 'class=\"icon galerie\">', rec)		
-				gallery_url = BASE_URL + stringextract('href=\"', '\"', leftstring) 
+				gallery_url = base_url + stringextract('href=\"', '\"', leftstring) 
 		if ID=='ARD_Bilder': 
 			onlyGallery=True													# kein Hybrid-Satz
-			gallery_url =  BASE_URL + stringextract('href=\"', '\"', rec)		# 1. Stelle <a href=
+			gallery_url =  base_url + stringextract('href=\"', '\"', rec)		# 1. Stelle <a href=
 			headlineclass = stringextract('headline\">', '</h4>', rec).strip()	# Headline mit url + Kurztext
 			headline = stringextract('html\">', '</a>', headlineclass)
 			teasertext = stringextract('title=\"', '\"', rec)					# Bildtitel als teasertext
@@ -741,13 +749,17 @@ def CreateVideoClipObject(url, title, summary, tagline, meta, thumb, duration, r
 
 ####################################################################################################
 #									Hilfsfunktionen
-
+#
 def get_page(path):		# holt kontrolliert raw-Content
+	Log('get_page')
 	try:
 		# 28.03.2018 Wechsel von HTTP.Request zu urllib2.Request, da der Inhalt von ../sendung/ts-24821.html nicht mehr 
 		#	mehr mit dem Chrome-Ergebnis übereinstimmte und 'User-Agent' nicht half. 
 		req = urllib2.Request(path)
-		r = urllib2.urlopen(req)
+		gcontext = ssl.SSLContext(ssl.PROTOCOL_TLSv1)
+		gcontext.check_hostname = False
+		gcontext.verify_mode = ssl.CERT_NONE
+		r = urllib2.urlopen(req, context=gcontext)
 		page = r.read()					
 		err = ''
 	except:

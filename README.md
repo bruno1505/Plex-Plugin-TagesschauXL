@@ -27,19 +27,13 @@ direkt: rols1@gmx.de
 
 INSTALLATION:
 ===================  
-Installationshilfe - ausgeliehen von Otto Kerner (Plex-Forum Mai 2015):
-Anleitung zum manuellen Installieren von Plex Software-Bundles (Channels, Agenten, Scanner):
-- zip-Datei von Github herunterladen
-- zip auspacken, heraus kommt ein Ordner namens "Plex-Plugin-3Sat_Mediathek"
-- Diesen Ordner umbenennen in "Plex-Plugin-3Sat_Mediathek.bundle"
-- den kompletten Ordner kopieren ins Plex Datenverzeichnis, in den Unterordner /Plug-ins
-
-ein Neustart von Plex oder ein vorheriges Beenden von Plex ist i.d.R. nicht erforderlich
-Beim Aktualisieren einfach den .bundle Ordner löschen und die neue Version an seine Stelle kopieren.
+das Plugin kann via WebTools oder manuell wie folgt installiert werden:
+- die zip-Datei (latest release) im Ordner …/Plex Media Server/Plug-ins entpacken und den Plex Media Server neu starten.
+- Auf Linux-Systemen muss im Verzeichnis Plex Media Server das Kommando ```chown plex:plex -R FlickrExplorer.bundle``` ausgeführt werden.
 
 UPDATES:
 ===================  
-Für Updates kann das integrierte Update-Modul verwendet werden.
+Für Updates kann auch das integrierte Update-Modul verwendet werden.
  
 Hauptmenü:
 ===================  

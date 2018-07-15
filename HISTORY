@@ -2,7 +2,9 @@ CHANGE HISTORY 	Plex-Plugin-TagesschauXL
 --------------	Releases: 	https://github.com/rols1/Plex-Plugin-TagesschauXL/releases
 --------------				
 					
-
+15.07.2018	1.0.6	get_page: erweitert um ssl.SSLContext (gcontext.check_hostname = False).
+			menu_hub: Url um ev. angehängte " bereinigt.
+			get_content: spezielle BASE_FAKT  für Menü #kurzerklärt eingeführt (statt BASE_URL).
 23.05.2018	1.0.5	Url-Umstellung HTTP -> HTTPS.
 			Url für Menü kurzerklärt geändert: ../faktenfinder.tagesschau.de/kurzerklaert/..	
 28.03.2018	1.0.4	get_page: Wechsel von HTTP.Request zu urllib2.Request (Problem mit Inhalten für
